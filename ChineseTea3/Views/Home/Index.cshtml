@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="bgphoto">
+    <div class="hero-box">
+        <h1 class="topic">Taste Chinsee Tea. Enjoy Healthy Life.</h1>
+        @*<a class="btn-link btn-full" href="#">I wanna buy tea</a>*@
+        @Html.ActionLink("I wanna buy tea","ViewProducts", "TeaProducts", null, new { @class = "btn-link btn-full" })
+        @*<a class="btn-link btn-ghost" href="#">Show me more</a>*@
+        @Html.ActionLink("Tell me more", "TeaIntroduction", null, new { @class = "btn-link btn-ghost" })
+    </div>
+</div>
+
+
+<section class="section-feature">
+    <div class="row">
+        <h2 class="sub-title">Your satisfaction &mdash; our succeed</h2>
+        <p class="long-copy">
+            Hi, we're Latea, your new tea expert. We provide best tea products and services to make your life more healthy and more elegant. We promise!
+        </p>
+    </div>
+    <div class="row">
+        <div class="col-md-3 box">
+            @*<i class="ion-happy-outline icon-big"></i>*@
+            <i class="glyphicon glyphicon-thumbs-up icon-big"></i>
+            <h3 class="feature-title">100% satisfaction</h3>
+            <p>Customers’ satisfactions are our first priority. We guarantee you our product with best quality. If you have any problem with our product or service, please feel free to contact us. We would do our best to make feel 100% happy.</p>
+        </div>
+        <div class="col-md-3 box">
+            @*<i class="ion-leaf icon-big"></i>*@
+            <i class="glyphicon glyphicon-grain icon-big"></i>
+            <h3 class="feature-title">100% organic</h3>
+            <p>All our tea products are collected from our verified provider. We guarantee it’s 100% organic. Meanwhile, to eliminate your worry, an official-certified document will be sent to you with ordered products.</p>
+        </div>
+        <div class="col-md-3 box">
+            @*<i class="ion-cube icon-big"></i>*@
+            <i class="glyphicon glyphicon-shopping-cart icon-big"></i>
+            <h3 class="feature-title">Free shipping</h3>
+            <p>Worry about shipping fee? You can say no now. We will provide free shipping for all orders more than $35. If you are not 100% satisfy our product for any reason, just simply contact us and return it for free.</p>
+        </div>
+        <div class="col-md-3 box">
+            @*<i class="ion-umbrella icon-big"></i>*@
+            <i class="glyphicon glyphicon-earphone icon-big"></i>
+            <h3 class="feature-title">7/24 support</h3>
+            <p>Have any problem even at holiday? Don’t worry, just simply give us a call at any time at any day. Our professional customer service will always be ready and help you out as soon as possible. </p>
+        </div>
+    </div>
+</section>
+
+<section class="section-features">
+    <div class="navbar-right navbar-products">
+        <i class="glyphicon glyphicon-leaf"></i>
+        @Html.ActionLink("All products", "ViewProducts", "TeaProducts", null, new { @class = "navbar-products-link" })
+    </div>
+    
+    <ul class="features-showcase clearfix">
+        <li>
+            <a href="#">
+                <figure class="features-photo">
+                    <img src="~/Images/Features/green-tea.jpg"/>
+                </figure>
+            </a>
+        </li>
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/red-tea.jpg"/>
+            </figure>
+        </li>
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/Pur-er.JPG"/>
+            </figure>
+        </li>
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/yellow-tea.jpg"/>
+            </figure>
+        </li>
+    </ul>
+
+    <ul class="features-showcase clearfix">
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/scented-tea.jpg"/>
+            </figure>
+        </li>
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/tea-set.jpg"/>
+            </figure>
+        </li>
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/tea-culture.jpg"/>
+            </figure>
+        </li>
+        <li>
+            <figure class="features-photo">
+                <img src="~/Images/Features/tea-culture-2.jpg"/>
+            </figure>
+        </li>
+    </ul>
+</section>
+<section class="section-steps" id="works">
+    <div class="row">
+        <h2 class="sub-title">How to order &mdash; Simple as 1, 2, 3</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-6 steps-box">
+            <img src="~/Images/iphone6.png" alt="iphone6" class="app-screen" />
+        </div>
+        <div class="col-md-6 steps-box">
+            <div class="works-step">
+                <div>1</div>
+                <p>Sign up at our website to get the best price and service for you.</p>
+            </div>
+            <div class="works-step">
+                <div>2</div>
+                <p>Order the product by using our mobile app or website. Or you can even call us! </p>
+            </div>
+            <div class="works-step">
+                <div>3</div>
+                <p>We will process and ship your order within 1 business day.</p>
+            </div>
+            <a href="#" class="btn-app">
+                <img src="~/Images/App logo/download-app.svg" alt="ios-app" />
+            </a>
+            <a href="#" class="btn-app">
+                <img src="~/Images/App logo/download-app-android.png" alt="android-app" />
+            </a>
+        </div>
+    </div>
+</section>
+

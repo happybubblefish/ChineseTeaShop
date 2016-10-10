@@ -1,0 +1,456 @@
+﻿@using System.Net.Configuration
+@using System.Web.UI.WebControls
+@using ChineseTea3.Models
+@using Microsoft.AspNet.Identity
+@using PagedList
+@using PagedList.Mvc
+@model ChineseTea3.Models.DetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-2.1.4.js"></script>
+<script>
+    $(function () {
+
+        var reloadPage;
+
+        var weightDpl = $("#Pv_Weight"); //Get the weight, using #Pv_weight instead of #Pv.weight
+        var amountDpl = $("#Pv_Amount");
+        var priceHid = parseFloat(document.getElementById("hidPrice").value);
+        var lastWeight = weightDpl.SelectedValue;
+        var lastAmount = amountDpl.SelectedValue;
+
+        //    $("#final-price").html("$" + display.toFixed(2));
+        //});
+
+
+        weightDpl.change(function () {
+            lastWeight = this.value; //remember the last weight
+            $.ajax({
+                type: "POST",
+                url: "/TeaProducts/ShowFinalPrice",
+                data: {
+                    pv:
+                    {
+                        Weight: lastWeight,
+                        Amount: lastAmount
+                    },
+                    price: priceHid
+                },
+                success: function (result) {
+                    //alert(result);
+                    $("#final-price").data("d", result.FinalPrice);
+                    $("#final-price").html("$" + result.FinalPrice.toFixed(2));
+                    $("#quantityCart").val(result.Amount);
+                }
+            });
+        });
+
+        amountDpl.change(function () {
+            lastAmount = this.value; //remember the last amount
+            //var purchaseViewModel = {
+            //    Weight: lastWeight,
+            //    Amount: lastAmount
+            //};
+            $.ajax({
+                type: "POST",
+                url: "/TeaProducts/ShowFinalPrice",
+                data: {
+                    //teaId: $("teaId"),
+                    pv:
+                    {
+                        Weight: lastWeight,
+                        Amount: lastAmount
+                    },
+                    price: priceHid
+                },
+                success: function (result) {
+                    //alert(result);
+                    $("#final-price").data("d", result.FinalPrice); //set the div value
+                    $("#final-price").html("$" + result.FinalPrice.toFixed(2));
+                    $("#quantityCart").val(result.Amount);
+                }
+            });
+        });
+
+        var addtoCartBtn = $("#addToCartSubmit");
+        addtoCartBtn.click(function () {
+            var btnSubmit = $("#finalPriceCart");
+            if (reloadPage != "reload") {
+                reloadPage = "reload";
+                if (lastWeight == null) {
+                    alert("Please choose weight!");
+                    return false;
+                } else if (lastAmount == null) {
+                    alert("Please choose amount");
+                    return false;
+                }
+            } else {
+                //alert("abc");
+                //window.location.reload();
+                //return false;
+                addtoCartBtn.submit();
+            }
+            btnSubmit.val($("#final-price").data("d")); //get the div value
+
+
+        });
+
+
+        //var t;
+
+        //$("#go-ajax").on("click", function () {
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Home/Index",
+        //        dataType: "",
+        //        ContentType: "",
+        //        data: {
+        //            s: $("#myInput").val()
+        //        },
+        //        success: function (result) {
+        //            //var rel = "Name: " + result.LastName + " " + result.FirstName;
+        //            $("#show-here").html(result);
+        //            //t = $("#show-here").html();
+        //            //alert(t);
+        //        }
+        //    });
+        //});
+
+
+    });
+</script>
+
+<div class="row">
+    @{
+        ChineseTeaShopEntities dbContext = new ChineseTeaShopEntities();
+        string id = User.Identity.GetUserId();
+        AspNetUser user = dbContext.AspNetUsers.FirstOrDefault(m => m.Id == id);
+        int count = Model.CommentsList.Count;
+}
+
+    <h4>@Model.Rv.Tea.Name's information:</h4>
+    <hr />
+    <section class="product-description">
+        <div class="details-left clearfix">
+            <img src="@Url.Content("~/UpLoadedFiles/" + Model.Rv.Tea.ImageFileName)" alt=@Model.Rv.Tea.Name width="300" height="300" />
+        </div>
+        <div class="details-right clearfix">
+            <div class="product-name">
+                @Html.DisplayFor(model => model.Rv.Tea.Name)
+            </div>
+
+            <div class="star">
+                @{
+                    int starCounts = Model.Rv.Tea.Ratings ?? 0;
+                }
+
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (starCounts > 0)
+                    {
+                        <span class="glyphicon glyphicon-star" style="color: #ff6a00; font-size: 80%"></span>
+                    }
+                    else
+                    {
+                        <span class="glyphicon glyphicon-star-empty" style="color: #ff6a00; font-size: 80%"></span>
+                    }
+
+                    starCounts--;
+                }
+                <a href="@Url.Action("ViewAllComments", new{id = Model.Rv.Tea.ID})">(@count)</a>
+            </div>
+
+            <div class="WeightList">
+                @*Choose the weight:&nbsp;&nbsp;&nbsp;*@
+                @Html.DropDownListFor(m => m.Pv.Weight, new SelectList(Model.Pv.WeightList, Model.Pv.Weight), "choose weight")<br />
+                <input type="hidden" id="hidPrice" value="@(Model.Rv.Tea.Price)" />
+                <input type="hidden" id="teaId" value="@Model.Rv.Tea.ID" />
+            </div>
+            <div id="final-price">$@Model.Rv.Tea.Price</div>
+
+            <div class="AmountList">
+                @*Choose the amount:&nbsp;&nbsp;&nbsp;*@
+                @Html.DropDownListFor(m => m.Pv.Amount, new SelectList(Model.Pv.AmountList, Model.Pv.Amount), "choose amount")<br />
+                <input type="hidden" id="teaId" value="@Model.Rv.Tea.ID" />
+            </div>
+
+            @*<div class="price">
+                    $@Html.DisplayFor(model => model.Rv.Tea.Price)
+                </div>*@
+
+            <div class="product-info">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rv.Tea.Origin)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rv.Tea.Origin)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rv.Tea.ExpDate)
+                </dt>
+
+                <dd>
+                    @Model.Rv.Tea.ExpDate.ToString("dd-MMM-yyyy")
+                    @*@Html.DisplayFor(model => model.ExpDate, "{0:dd-MMM-yyyy}")*@
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rv.Tea.Kind)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rv.Tea.Kind)
+                </dd>
+
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Rv.Tea.Count)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Rv.Tea.Count)
+                </dd>
+
+            </div>
+
+        </div>
+    </section>
+
+    @using (Html.BeginForm("AddToCart", "ShoppingCart", FormMethod.Post)) //new { id = "addToCart" }
+    {
+        @Html.Hidden("productId", Model.Rv.Tea.ID)
+        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+        <input type="hidden" name="finalPrice" id="finalPriceCart" />
+        @*@Html.Hidden("finalPrice", Model.Pv.FinalPrice, new { id = "finalPriceCart" })*@
+        @*@Html.Hidden("quantity", Model.Pv.Amount, new { id = "quantityCart"})*@
+        <input type="hidden" name="quantity" id="quantityCart" />
+
+        <p>
+            <input type="submit" class="btn btn-danger pull-right" id="addToCartSubmit" style="margin-top: -15px" value="Add to cart" />
+        </p>
+
+    }
+
+
+    <hr />
+
+
+    @{
+        if (user != null && user.Role == "admin")
+        {
+            <p>
+                @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
+                <a href="@Url.Content("~/TeaProduct/Edit/" + Model.Rv.Tea.ID)" class="btn btn-primary"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                <a href="#myModal" role="button" class="btn btn-danger" data-toggle="modal"><span class="glyphicon glyphicon-remove"></span> Delete</a>
+                <a href="@Url.Content("~/TeaProduct/ViewProducts")" class="btn btn-warning"><span class="glyphicon glyphicon-backward"></span> Back</a>
+                @*@Html.ActionLink("Back to List", "Index")*@
+            </p>
+
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content panel-warning">
+                        <div class="modal-header panel-heading">
+                            <button class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Deletion confirmation</h4>
+                        </div> <!-- end modal-header -->
+
+                        <div class="modal-body">
+
+                            <h3>Do you really want to delete this product?</h3>
+
+
+                        </div> <!-- end modal-body -->
+
+                        <div class="modal-footer">
+                            <button class="btn btn-default" data-dismiss="modal" type="button">Cancel</button>
+                            <a href="@Url.Content("~/TeaProduct/Delete/" + Model.Rv.Tea.ID)" class="btn btn-warning">Confirm</a>
+
+                        </div> <!-- end modal-footer -->
+                    </div> <!-- end modal-content -->
+                </div> <!-- end modal-dialog -->
+            </div>
+        <!-- end myModal -->
+        }
+    }
+
+
+    <h3>Brewing guideline</h3>
+    <div section="brew-guideline clearfix">
+        <div class="guide-left">
+            <p>
+                Teaware: 12 oz. glass or porcelain pot<br />
+                Amount: 1 ½ Tbs of tea leaves<br />
+                Water: 185°F filtered water<br />
+                Infusion: First infusion at least 3 minutes. The leaves are good for 5 infusions. Add a little more time for each subsequent infusion.
+            </p>
+        </div>
+        <div class="guide-right">
+            @*must include "embed" word into address, guide-right div must float right *@
+            <iframe width="570" height="350" src="https://www.youtube.com/embed/XO71WKQhKA8" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <h3>Related products</h3>
+
+    @if (Model.Rv.RelatedContentPagedList.Count != 0)
+    {
+        <div class="container">
+            <div class="row product-list">
+                @foreach (var item in Model.Rv.RelatedContentPagedList)
+                {
+                    if (item.IsDelete == false)
+                    {
+                        <div class="col-sm-3 col-lg-3 col-md-3">
+                            <div class="thumbnail">
+                                <img src="@Url.Content("~/UpLoadedFiles/" + item.ImageFileName)" alt=@item.Name />
+                                <div class="caption">
+                                    <h4 class="pull-right">
+                                        @item.Count left
+                                    </h4>
+                                    <h4>
+                                        @*<a href="~/TeaProduct/Details">@item.Name</a>*@
+                                        @Html.ActionLink(@item.Name, "Details", new { id = item.ID })
+                                    </h4>
+                                </div>
+
+                                <div class="caption">
+                                    <p class="pull-left" style="font-size: 20px">$@item.Price</p>
+
+
+                                    @*@using (Html.BeginForm("AddToCart", "ShoppingCart"))
+                                        {
+                                            @Html.Hidden("productId", @item.ID)
+                                            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                            <p>
+                                                <input type="submit" class="btn btn-danger pull-right" style="margin-top: -15px" value="Add to cart" />
+                                            </p>
+                                        }*@
+
+
+                                </div><br />
+
+                                <div class="caption">
+                                    <p class="pull-right">
+                                        
+                                        @Html.ActionLink(count.ToString() + " reviews", "ViewAllComments", new { id = Model.ProductId })
+                                    </p>
+                                    <p>
+                                        @{
+                        starCounts = item.Ratings ?? 0;
+                                        }
+
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (starCounts > 0)
+                                            {
+                                                <span class="glyphicon glyphicon-star" style="color: #ff6a00"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="glyphicon glyphicon-star-empty" style="color: #ff6a00"></span>
+                                            }
+
+                                            starCounts--;
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+
+
+            @* Sort = Request.QueryString["Sort"], Kind = Request.QueryString["Kind"], Price = Request.QueryString["Price"]*@
+        </div>
+
+
+    }
+    else
+    {
+        <div class="row">
+            <h2>Sorry, there is no item you are searching for...</h2>
+        </div>
+    }
+
+    <a href="@Url.Action("ViewAllComments", new { id = Model.ProductId})" class="btn btn-warning"><i class=" glyphicon glyphicon-comment"></i> View all comments</a>&nbsp;&nbsp;&nbsp;
+    @*@Html.ActionLink("View all comments", "ViewAllComments", new { id = Model.ProductId, @class = "btn btn-warning" })*@
+
+    <a href="#commentModal" role="button" class="btn btn-warning" data-toggle="modal"><span class="glyphicon glyphicon-pencil"></span> Leave a comment</a>
+
+
+    <div class="modal fade" id="commentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Leave a comment</h4>
+                </div> <!-- end modal-header -->
+
+                <div class="modal-body">
+                    <h4>Popovers in a modal</h4>
+                    <a href="#" class="btn btn-danger pop" data-toggle="popover" data-placement="top" data-original-title="You clicked it!" data-content="I knew you would.">Don't click this</a>
+
+                    <h4>Tooltips in a modal</h4>
+                    <a href="#" data-original-title="Tooltip" rel="tooltip">This link</a>should have a tooltip, and should be <a href="#" data-original-title="Woohoo!" rel="tooltip">this one</a>!
+
+                    <hr>
+                    @using (Html.BeginForm("AddComment", "TeaProducts", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label">Rating</label>
+                            <div class="col-lg-10">
+                                @Html.RadioButtonFor(m => m.SelectedRating, 1)<text>1</text>&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.SelectedRating, 2)<text>2</text>&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.SelectedRating, 3)<text>3</text>&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.SelectedRating, 4)<text>4</text>&nbsp;&nbsp;
+                                @Html.RadioButtonFor(m => m.SelectedRating, 5)<text>5</text>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="commentTitle">Title</label>
+                            <div class="col-lg-10">
+                                @*<input class="form-control" id="commentTitle" placeholder="Title" type="text">*@
+                                @Html.TextBoxFor(m => m.CurrentComment.CommentTitle, new { @class = "form-control", id = "commentTitle", placeholder = "Title" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-2 control-label" for="commentBody">Comment</label>
+                            <div class="col-lg-10">
+                                @*<textarea class="form-control" id="commentBody" placeholder="Tell us something about this product" rows="3"></textarea>*@
+
+                                @Html.TextAreaFor(m => m.CurrentComment.CommentContent, 20, 10, new { @class = "form-control", id = "commentBody", placeholder = "Tell us something about this product" })
+
+                                <button class="btn btn-success pull-right" type="submit">Submit</button>
+                            </div>
+                        </div>
+                        @*@Html.HiddenFor(m => m.Pv.Weight)
+                            @Html.HiddenFor(m=>m.Pv.Amount)*@
+                        @Html.HiddenFor(m => m.ProductId)
+                    }
+
+
+                </div> <!-- end modal-body -->
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button> <button class="btn btn-primary" type="button">Save changes</button>
+                </div> <!-- end modal-footer -->
+
+
+            </div> <!-- end modal-content -->
+        </div> <!-- end modal-dialog -->
+    </div>
+    <!-- end myModal -->
+
+
+</div>

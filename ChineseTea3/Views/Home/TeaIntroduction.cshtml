@@ -1,0 +1,273 @@
+﻿@{
+    ViewBag.Title = "TeaIntroduction";
+}
+
+<script>
+    $(function () {
+        $('#modal').on('show.bs.modal', function () {
+            $(this).find('.modal-body').css({
+                width: 'auto', //probably not needed
+                height: 'auto', //probably not needed
+                'max-height': '100%'
+            });
+        });
+
+
+        $("#pop").on("click", function () {
+            $('#imagepreview').attr('src', $('#tea-history-map').attr('src')); // here asign the image to the modal when the user click the enlarge link
+            $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+        });
+
+        $("#pop2").on("click", function () {
+            $('#imagepreview2').attr('src', $('#tea-plant-development-pic').attr('src')); // here asign the image to the modal when the user click the enlarge link
+            $('#imagemodal2').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+        });
+
+
+    });
+</script>
+
+<section class="Introduction">
+    <div class="row" id="moreInfo">
+        @*<div class="col-sm-6">*@
+        <h2 class="Intro-title">Learn more about Chinese tea</h2>
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">History</a></li>
+                <li><a href="#tab2" data-toggle="tab">Catogory</a></li>
+                <li><a href="#tab3" data-toggle="tab">Brewing Guideline</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    @*<h4><span class="glyphicon glyphicon-map-marker"></span>Our Location<small>More like our favorite surf spot</small></h4>*@
+
+                    @*<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14871.124384694827!2d-157.83269825!3d21.28013095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1427438337199" width="100%" height="200" frameborder="0" style="border:0"></iframe>*@
+                    <figure class="tea-history">
+                        <a href="#" id="pop"><img id="tea-history-map" src="~/Images/Introduction/tea_history_map.jpg" /></a>
+                        <figcaption>
+                            <p>Chinese tea history</p>
+                        </figcaption>
+                    </figure>
+
+                    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Chinese tea map</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="" id="imagepreview">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut iaculis velit. Donec a bibendum elit. Pellentesque dui lorem, pellentesque sit amet bibendum hendrerit, condimentum id orci. Curabitur orci tellus, facilisis nec ligula vitae, consectetur finibus orci. In hac habitasse platea dictumst. Aenean venenatis luctus odio, in luctus mauris eleifend nec. Ut vehicula odio purus, ultrices volutpat turpis interdum id. Vestibulum viverra auctor rutrum. Nunc lacus lacus, semper nec dui eget, faucibus congue lectus. Sed porta ipsum ipsum. Mauris et diam diam. Sed consequat purus orci, vel tristique nibh malesuada eu. Nunc vel purus id enim tempus tristique. Praesent porta eros non varius volutpat.</p>
+
+                    <figure class="tea-plant">
+                        <a id="pop2">
+                            <img src="~/Images/Introduction/Tea-plant-development.png" id="tea-plant-development-pic" />
+                        </a>
+                        <figcaption>Tea plant development</figcaption>
+                    </figure>
+
+                    <div class="modal fade" id="imagemodal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel2">Tea development</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img src="" id="imagepreview2" style="width: 500px; height: auto">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <p>Fusce tortor leo, vulputate ac luctus sed, commodo non arcu. Morbi lobortis dignissim nulla, vitae consectetur eros tincidunt sed. Donec efficitur, enim vitae blandit consectetur, ligula mi egestas massa, in pretium neque urna malesuada quam. Sed tempor lorem eu magna laoreet rutrum. Nulla blandit lorem a quam faucibus auctor. Quisque id metus pretium, blandit tortor eget, hendrerit orci. Morbi ultrices iaculis lorem non facilisis. Fusce molestie at turpis sit amet molestie. Nam in mi magna. Sed pharetra leo quis nulla dignissim efficitur. Pellentesque sagittis elementum mauris, ut venenatis tortor interdum eu. Nullam vel convallis odio. Aenean ut leo elementum, tempus magna et, congue metus. Aliquam ultrices tellus quis faucibus lacinia. Maecenas mattis malesuada eros, eu aliquet nulla. Phasellus posuere porta urna.Sed tempor lorem eu magna laoreet rutrum. Nulla blandit lorem a quam faucibus auctor. Quisque id metus pretium, blandit tortor eget, hendrerit orci. Morbi ultrices iaculis lorem non facilisis. Fusce molestie at turpis sit amet molestie. Nam in mi magna. Sed pharetra leo quis nulla dignissim efficitur. Pellentesque sagittis elementum mauris, ut venenatis tortor interdum eu. Nullam vel convallis odio. Aenean ut leo elementum, tempus magna et, congue metus. Aliquam ultrices tellus quis faucibus lacinia. Maecenas mattis malesuada eros, eu aliquet nulla. Phasellus posuere porta urna.olestie at turpis sit amet molestie. Nam in mi magna. Sed pharetra leo quis nulla dignissim efficitur. </p>
+                </div>	<!-- end tab-pane -->
+
+                <div class="tab-pane" id="tab2">
+                    <div class="category clearfix" id="black">
+                        <figure>
+                            <img src="~/UploadedFiles/Pu_Erh.jpg" />
+                            <figcaption>Black & dark</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            Black tea, known to the Chinese as red tea, is the most common product of the tea bush, produced by encouraging freshly picked tea leaves to darken with large amount of cellular oxidation. Black tea is consumed all over the world, although it is the least popular style of tea in China.<br />
+                            The range in quality is greater in black tea than any other – most is grown and mechanically harvested on a huge scale in places like India, Sri Lanka and Kenya. China’s main black tea producing regions; the province of Yunnan, Anhui, and the legendary Lapsang farm in Tong Mu Village of the Wu Yi Mountains are finally being acknowledged in China as genuinely top quality teas in their own right. They are hand-picked and laboriously hand processed, achieving the exact amount of oxidation (exposure to air at the critical stage in processing, which is also known as fermentation) to produce the unique rich, robust black tea flavor and beautiful amber to red color.
+                        </p>
+                    </div><hr />
+                    <div class="category clearfix" id="green">
+                        <figure>
+                            <img src="~/UploadedFiles/Long_jing.jpg" />
+                            <figcaption>Green</figcaption>
+                        </figure>
+                        <p class="truncate">Before there was any other tea, there was green tea, and the health benefits of green tea date back more than 5000 years. Green tea is regarded in China as the ultimate tea, and there are thousands of different varieties, plus many more from all around the world. However, the original Chinese teas are still rightly thought of as the finest. Green tea is made from the sweetest, newest buds and tips plucked from the top of the plant, and the best varieties are only harvested in the spring. Unlike black, oolong and puer teas, green tea is not fermented (or oxidized). What makes green tea different from other teas is what leaves are chosen, how and when they are plucked, and how they are then processed. There was a time when spring could not officially be declared until the very first tea was delivered to the emperor. Today it is still true that the most prized green tea are the first tender buds of spring. With the price of gold today, it is interesting that there was a time when green tea was commonly worth more than gold. Still in China, Japan, and Korea, it is still the best gift that you can give someone to whom you wish to show respect by wishing them a long life. </p>
+                        <a href="#">[read more...]</a>
+                    </div><hr />
+                    <div class="category clearfix" id="Compressed">
+                        <figure>
+                            <img src="~/UploadedFiles/Fragrant Garden_Brick Tea.jpg" />
+                            <figcaption>Compressed</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            Yunnan began to process tea in the Three Kingdoms period (220-360). Allegedly, at this time Zhu Ge Liang from Sichuan, a clever tactician, encouraged the Yunnan people to cultivate tea to improve their lives. Still, Yunnan people call Zhu Ge Liang their tea god. He is still prayed to in the south of Yunnan where he conquered more that 2000 years ago. This is the area of Xichuanbanna and the six famous mountains. At the heart of Yunnan’s south west is the city of Puer, the base of the province’s ancient tea market, and from where “puer tea” derives its name. (The city Simao in 2007 changed its name to Puer, and should not be confused with the ancient city). From Puer city, tea was distributed to Tibet, and South East Asia on “tea horse trading roads.” The rough terrain of Yunnan demanded efficiently packed tea, so compressed cakes of tea were wrapped and tied into stacks of seven and enclosed into a bamboo shell. For this reason, certain puer cakes are commonly labled “Qi Zi Bing” or literally Seven Piece Cake. Carrying tea though the humid rain forest over the long, hard trading routes may have encouraged natural fermentation.<br/>
+                            People collect puer tea for three main reasons, which include enjoyment of the tea, overall health benefits and the investment potential. It became popular outside of the traditional markets of Tibet and Mongolia, where for many years it was exchanged for horses, when it became sought after in Hong Kong for its health benefits, and for its mysterious quality of slow, natural fermentation, that causes it to improve with age. During the Cultural Revolution a lot of the old cakes were destroyed increasing the rareness of aged puer. In 1973, a process was invented to create fermented puer in about 60 days.<br/>
+                            Now the popularity of puer has spread from Hong Kong and Guangzhou, to Taiwan, Beijing, Shanghai and South East Asia. The popularity of puer has even started to spread to the US and Europe. All puer tea starts out the same. The basic ingredient is called mao cha. Mao cha is harvested and allowed to dry in the sun. Yunnan is the only tea growing province in China that has a lot of high altitude sunshine and blue skies.
+                        </p>
+                        <a href="#">[read more...]</a>
+                    </div><hr />
+                    <div class="category clearfix" id="Oolong">
+                        <figure>
+                            <img src="~/UploadedFiles/DanChong.jpg" />
+                            <figcaption>Oolong</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            Some time around the beginning of the Qing Dynasty (1644) a new style of partially oxidized tea sprang from the Wu Yi Mountains. When first mentioned in writing these teas were referred to as Rock Tea (Yan Cha) – a reference to their birthplace, the rocky soil of Wu Yi Shan, and a name that is still used for teas from this region today. These first teas soon came to be called Min Bei Wulong Cha, translated as “Northern Fujian Black Dragon Tea.”  In English, we use a short anglicized pronunciation of this title – “wulong,” also spelled “oolong.”<br />
+
+                            The skill of making this special type of tea spread from the North of Fujian province southward to the Anxi and Guangdong province’s Chaozhou area (Phoenix Mountain) before crossing the strait to Taiwan around 1810. These areas continue to be the bases for the four major catagories of wulong tea: Wu Yi Mountain Rock Wulong, Anxi Wulong, Guangdong Dan Cong Wulong and Taiwan Wulong.
+                        </p>
+                    </div><hr />
+
+                    <div class="category clearfix" id="Red">
+                        <figure>
+                            <img src="~/UploadedFiles/nilgiri_thiashola.jpg"/>
+                            <figcaption>Red</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            Like most techniques for making tea, there are arguments over the exact beginnings of the yellow tea style. Few in number, the elusive yellow teas have always developed in isolated instances in areas that were already famous for producing green tea, like Huo Shan in Anhui or Meng Ding Shan in Sichuan. Although there is a long history in these regions of producing green tea, it’s speculated that yellow tea only began to be produced in the early Qing Dynasty (1644-1912). Yellow teas are made for the appreciation of locals and have never had a broad market presence. Growing out of an elaboration of green tea techniques, the process for making yellow tea is time consuming and difficult. Thus for the thousand kinds of green tea, there are only three kinds of yellow tea that survive today.
+
+                            Recently consumer preference has favored teas with vibrant green leaves and cup color. Because yellow tea loses its verdant appearance in processing, this market trend has contributed to its decline. Now, even famous yellow teas are now produced with green tea processing techniques to meet market demand. Leaves once used to make traditional yellow teas are no longer processed as such at the cost of abandoning the traditional skill. In industry terms, yellow teas produced to be green are referred to as Lu Zhen or Green Needle, conversely yellow teas produced in their original style are typed Huang Zhen or Yellow Needle.
+                        </p>
+                        <a href="#">[read more...]</a>
+                    </div><hr />
+                    <div class="category clearfix" id="Scented">
+                        <figure>
+                            <img src="~/UploadedFiles/Ginger_Peach.jpg" />
+                            <figcaption>Scented</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            Traditionally, scented tea is made from different types of finished tea leaves that are scented slowly with different fresh flowers to absorb aroma and flavor. Most scented tea won’t be sold with the flowers themselves, the tea has already absorbed the aroma during the slow processing. Chinese tea makers describe good scented tea as having a floral aroma absorbed in to its “bones.” Tea has a character of slowly absorbing any flavor and aroma around, meaning quality scented tea will take at least 2-3 weeks to fully absorb the scent. For high quality scented tea, the tea must be scented with fresh flowers for hours at a time, multiple times. After being scented each time, the tea master must be very patient to remove the moisture that has been absorbed in to the tea from the fresh flowers. Modern scented tea, also called flavored tea, is mixed with different dried flowers and dried fruits. These inclusions do not have much scent on their own, so the makers of flavored tea have to spray the tea mixture with essential oils to give it an aroma. Our scented tea is made with traditional methods, using fresh only flowers.
+                        </p>
+                        <a href="#">[read more...]</a>
+                    </div><hr />
+                    <div class="category clearfix" id="White">
+                        <figure>
+                            <img src="~/UploadedFiles/Premier_white_peony_tea.jpg" />
+                            <figcaption>White</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            White tea has become very popular in recent times because of the intensive marketing done in the West in relationship to its health enhancing qualities. White tea appears everywhere in products that range from ready to drink (RTD) beverages to cosmetics. While there has not been as much research with white tea as there has been with green tea, in China it was first used as medicine in Northern Fujian for its effectiveness in treating diseases that inflamed the skin, like Chicken Pox and Measles. White tea never really made it as a domestically popular tea in China. The large buds of the Da Bai Hao bush had primarily been used for green tea in the domestic market, but never commanded the premium prices fetched by the smaller more delicate green tea buds being produced in the provinces to the north. The production has been very ramped up in the last ten years in Northern Fujian replacing the black tea that had been Fujian’s chief export crop, so much so that it is hard to find the Fujian black tea on which the Fujian economy had relied on for centuries.
+                        </p>
+                        <a href="#">[read more...]</a>
+                    </div><hr />
+                    <div class="category clearfix" id="Yellow">
+                        <figure>
+                            <img src="~/UploadedFiles/Meng_Ding_Huang_Ya.jpg"/>
+                            <figcaption>Yellow</figcaption>
+                        </figure>
+                        <p class="truncate">
+                            Like most techniques for making tea, there are arguments over the exact beginnings of the yellow tea style. Few in number, the elusive yellow teas have always developed in isolated instances in areas that were already famous for producing green tea, like Huo Shan in Anhui or Meng Ding Shan in Sichuan. Although there is a long history in these regions of producing green tea, it’s speculated that yellow tea only began to be produced in the early Qing Dynasty (1644-1912). Yellow teas are made for the appreciation of locals and have never had a broad market presence. Growing out of an elaboration of green tea techniques, the process for making yellow tea is time consuming and difficult. Thus for the thousand kinds of green tea, there are only three kinds of yellow tea that survive today.<br/>
+
+                            Recently consumer preference has favored teas with vibrant green leaves and cup color. Because yellow tea loses its verdant appearance in processing, this market trend has contributed to its decline. Now, even famous yellow teas are now produced with green tea processing techniques to meet market demand. Leaves once used to make traditional yellow teas are no longer processed as such at the cost of abandoning the traditional skill. In industry terms, yellow teas produced to be green are referred to as Lu Zhen or Green Needle, conversely yellow teas produced in their original style are typed Huang Zhen or Yellow Needle.
+                        </p>
+                        <a href="#">[read more...]</a>
+                    </div>
+
+                    <a href="#" class="top">Top</a>
+
+                    @*<img src="~/Content/images/business-partnership.jpg" class="thumbnail pull-left" style="margin:5px 10px 0 0" />
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut iaculis velit. Donec a bibendum elit. Pellentesque dui lorem, pellentesque sit amet bibendum hendrerit, condimentum id orci. Curabitur orci tellus, facilisis nec ligula vitae, consectetur finibus orci. In hac habitasse platea dictumst. Aenean venenatis luctus odio, in luctus mauris eleifend nec. Ut vehicula odio purus, ultrices volutpat turpis interdum id. Vestibulum viverra auctor rutrum. Nunc lacus lacus, semper nec dui eget, faucibus congue lectus. Sed porta ipsum ipsum. Mauris et diam diam. Sed consequat purus orci, vel tristique nibh malesuada eu. Nunc vel purus id enim tempus tristique. Praesent porta eros non varius volutpat.</p>
+
+                        <p>Fusce tortor leo, vulputate ac luctus sed, commodo non arcu. Morbi lobortis dignissim nulla, vitae consectetur eros tincidunt sed. Donec efficitur, enim vitae blandit consectetur, ligula mi egestas massa, in pretium neque urna malesuada quam. Sed tempor lorem eu magna laoreet rutrum. Nulla blandit lorem a quam faucibus auctor. Quisque id metus pretium, blandit tortor eget, hendrerit orci. Morbi ultrices iaculis lorem non facilisis. Fusce molestie at turpis sit amet molestie. Nam in mi magna. Sed pharetra leo quis nulla dignissim efficitur. Pellentesque sagittis elementum mauris, ut venenatis tortor interdum eu. Nullam vel convallis odio. Aenean ut leo elementum, tempus magna et, congue metus. Aliquam ultrices tellus quis faucibus lacinia. Maecenas mattis malesuada eros, eu aliquet nulla. Phasellus posuere porta urna.</p>*@
+
+                    <hr>
+
+                    <a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal"><span class="glyphicon glyphicon-hand-up"></span> Click for a Modal Window!</a>
+
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">A Modal Window</h4>
+                                </div> <!-- end modal-header -->
+
+                                <div class="modal-body">
+                                    <h4>Text in a modal</h4>
+
+                                    <p>Etiam auctor leo non arcu tincidunt, et placerat ex placerat. Pellentesque ut nunc a augue rutrum dapibus quis vel ex. Mauris at semper nulla, id dapibus nisi. Nunc auctor enim quis arcu sodales convallis. Morbi vehicula tellus metus, et fringilla ante pellentesque sed. Sed ut scelerisque eros. Mauris malesuada nisl at eros egestas iaculis.</p>
+
+
+                                    <h4>Popovers in a modal</h4>
+                                    <a href="#" class="btn btn-danger pop" data-toggle="popover" data-placement="top" data-original-title="You clicked it!" data-content="I knew you would.">Don't click this</a>
+
+                                    <h4>Tooltips in a modal</h4>
+                                    <a href="#" data-original-title="Tooltip" rel="tooltip">This link</a>should have a tooltip, and should be <a href="#" data-original-title="Woohoo!" rel="tooltip">this one</a>!
+
+                                    <hr>
+
+                                    <p>
+                                        <small class="text-muted">PS. This form doesn't do anyting. Just a heads up.</small>
+                                    </p>
+
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="inputname">Name</label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="inputName" placeholder="Name" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" for="inputemail">Email</label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="inputEmail" placeholder="Email" type="email">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label" for=" inputmessage">Email</label>
+                                            <div class="col-lg-10">
+                                                <textarea class="form-control" id="inputMessage" placeholder="Message" rows="3"></textarea>
+
+                                                <button class="btn btn-success pull-right" type="submit">Send!</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                </div> <!-- end modal-body -->
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button> <button class="btn btn-primary" type="button">Save changes</button>
+                                </div> <!-- end modal-footer -->
+
+
+                            </div> <!-- end modal-content -->
+                        </div> <!-- end modal-dialog -->
+                    </div> <!-- end myModal -->
+                </div>
+
+
+                <div class="tab-pane" id="tab3">
+                    <p>This page is under construct...</p>
+                </div>
+
+            </div>	<!-- end tab-pane -->
+        </div>	<!-- end-tabbable -->
+        @*</div>*@	<!-- end-col-sm-6 -->
+    </div>
+</section>

@@ -1,0 +1,252 @@
+﻿@using System.Activities.Expressions
+@using ChineseTea3.Models
+@using Microsoft.AspNet.Identity
+@model ChineseTea3.Models.TeaProduct
+
+@{
+    ViewBag.Title = "CreateProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+        }
+
+    input[readonly] {
+        background-color: white !important;
+        cursor: text !important;
+    }
+</style>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datePicker')
+         .datepicker({
+             format: 'mm/dd/yyyy'
+         }).on('changeDate', function (e) {
+            $('#expDate').val();
+         });
+        });
+
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(document).ready(function () {
+            $('.btn-file :file').on('fileselect', function (event, numFiles, label) {
+                var input = $(this).parents('.input-group').find(':text'),
+                    log = numFiles > 1 ? numFiles + 'files selected' : label;
+
+                if (input.length) {
+                    input.val(log);
+                } else {
+                    if (log) {
+                        alert(log);
+                    }
+                }
+            });
+        });
+
+        $(function () {
+            $('.dropdown-menu li').on('click', function () {
+                $('#txtKind').val($(this).text());
+            });
+        });
+    </script>
+}
+
+@{
+    ViewBag.Title = "Register";
+    List<SelectListItem> roles = new List<SelectListItem>()
+    {
+        new SelectListItem()
+        {
+            Text="Black & Dark",
+            Value="Black & Dark"
+        },
+        new SelectListItem()
+        {
+            Text="Green",
+            Value="Green"
+        },
+        new SelectListItem()
+        {
+            Text="Oolong",
+            Value="Oolong"
+        },
+         new SelectListItem()
+        {
+            Text="Red",
+            Value="Red"
+        },
+        new SelectListItem()
+        {
+            Text="White",
+            Value="White"
+        },
+        new SelectListItem()
+        {
+            Text="Scented",
+            Value="Scented"
+        },
+         new SelectListItem()
+        {
+            Text="Compressed",
+            Value="Compressed"
+        },
+        new SelectListItem()
+        {
+            Text="Yellow",
+            Value="Yellow"
+        }
+    };
+}
+
+
+
+    <div class="row">
+
+        <h2>CreateProduct</h2>
+
+        @using (Html.BeginForm("CreateProduct", "TeaProduct", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>TeaProduct</h4>
+                <hr/>
+                @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Price, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Price, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Origin, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Origin, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Origin, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Status, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        <div class="checkbox" style="margin-left: 20px">
+                            @Html.EditorFor(model => model.Status)
+                            @Html.ValidationMessageFor(model => model.Status, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Count, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Count, new {htmlAttributes = new {@class = "form-control"}})
+                        @Html.ValidationMessageFor(model => model.Count, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+
+                <div class="btn-group dropdownlist">
+                    <div class="form-group">
+                        @Html.Label("Kind", new {@class = "col-md-2 control-label"})
+                        <div class="col-md-10">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="#">Black &amp; Dark</a></li>
+                                                <li><a href="#">Green</a></li>
+                                                <li><a href="#">Oolong</a></li>
+                                                <li><a href="#">Red</a></li>
+                                                <li><a href="#">White</a></li>
+                                                <li><a href="#">Scented</a></li>
+                                                <li><a href="#">Yellow</a></li>
+                                                <li><a href="#">Compressed</a></li>
+                                            </ul>
+                                        </div>
+                                        @Html.TextBoxFor(m => m.Kind, new {id = "txtKind", @class = "form-control", style = "width:245px"})
+                                    </div>
+                                </div>
+                            </div><!-- /.row -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Exparation Date", htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        <div class="input-group input-append date" id="datePicker">
+                            <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                            @*<input type="text" id="expDate" class="form-control" name="date" style="width:240px" />*@
+                            @Html.TextBoxFor(m => m.ExpDate, new {id = "expDate", name = "date", @class = "form-control", style = "width:240px"})
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ExpDate, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ImageFileName, htmlAttributes: new {@class = "control-label col-md-2"})
+                    <div class="col-md-10">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file">
+                                Browse&hellip; <input type="file" name="uploadedImageFile" multiple>
+                            </span>
+                        </span>
+                            <input type="text" class="form-control" style="width: 195px" readonly/>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.ImageFileName, "", new {@class = "text-danger"})
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" class="btn btn-default" value="Create"/>
+                    </div>
+                </div>
+            </div>
+        }
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    </div>
+}
+

@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Chinese Tea Shop</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="~/Content/normalize.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet"/>
+    <link href="~/Content/ionicons.min.css" rel="stylesheet"/>
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+    <link href="~/Content/datepicker3.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,300italic' rel='stylesheet' type='text/css'>
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                    <a href="@Url.Action("Index", "Home")">
+                        <img src="~/Images/logo-tea.png" alt="logo" class="logo"/>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                        <li>@Html.ActionLink("Products", "ViewProducts", "TeaProducts", null, new {@class = "nav-link"})</li>
+                        <li>@Html.ActionLink("Services", "About", "Home", null, new {@class = "nav-link"})</li>
+                        <li>@Html.ActionLink("About", "About", "Home", null, new {@class = "nav-link"})</li>
+                        <li>@Html.Partial("_SearchPartial")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+
+        <div id="push"></div>
+        @RenderBody()
+    </div>
+<footer>
+    <div class="row">
+        <div class="col-md-6">
+            <ul class="footer-nav">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">iOS App</a></li>
+                <li><a href="#">Android App</a></li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <ul class="social-links">
+                <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+                <li><a href="#"><i class="ion-social-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <p>Copyright &copy; @DateTime.Now.Year by LaTea. All rights reserved.</p>
+    </div>
+</footer>
+
+    @*has to remove these two to make the createproduct work*@
+@*@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")*@
+@RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+@*<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>*@
+
+<div class="row" id="moreInfo">
+    <div class="col-sm-6">
+        <h3>Our story</h3>
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab">Company introduction</a></li>
+                <li><a href="#tab2" data-toggle="tab">Partners</a></li>
+                <li><a href="#tab3" data-toggle="tab">Others</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <h4><span class="glyphicon glyphicon-map-marker"></span>Our Location<small>More like our favorite surf spot</small></h4>
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14871.124384694827!2d-157.83269825!3d21.28013095!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1427438337199" width="100%" height="200" frameborder="0" style="border:0"></iframe>
+
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut iaculis velit. Donec a bibendum elit. Pellentesque dui lorem, pellentesque sit amet bibendum hendrerit, condimentum id orci. Curabitur orci tellus, facilisis nec ligula vitae, consectetur finibus orci. In hac habitasse platea dictumst. Aenean venenatis luctus odio, in luctus mauris eleifend nec. Ut vehicula odio purus, ultrices volutpat turpis interdum id. Vestibulum viverra auctor rutrum. Nunc lacus lacus, semper nec dui eget, faucibus congue lectus. Sed porta ipsum ipsum. Mauris et diam diam. Sed consequat purus orci, vel tristique nibh malesuada eu. Nunc vel purus id enim tempus tristique. Praesent porta eros non varius volutpat.</p>
+
+                    <p>Fusce tortor leo, vulputate ac luctus sed, commodo non arcu. Morbi lobortis dignissim nulla, vitae consectetur eros tincidunt sed. Donec efficitur, enim vitae blandit consectetur, ligula mi egestas massa, in pretium neque urna malesuada quam. Sed tempor lorem eu magna laoreet rutrum. Nulla blandit lorem a quam faucibus auctor. Quisque id metus pretium, blandit tortor eget, hendrerit orci. Morbi ultrices iaculis lorem non facilisis. Fusce molestie at turpis sit amet molestie. Nam in mi magna. Sed pharetra leo quis nulla dignissim efficitur. Pellentesque sagittis elementum mauris, ut venenatis tortor interdum eu. Nullam vel convallis odio. Aenean ut leo elementum, tempus magna et, congue metus. Aliquam ultrices tellus quis faucibus lacinia. Maecenas mattis malesuada eros, eu aliquet nulla. Phasellus posuere porta urna.</p>
+                </div>	<!-- end tab-pane -->
+
+                <div class="tab-pane" id="tab2">
+
+                    <img src="~/Content/images/business-partnership.jpg" class="thumbnail pull-left" style="margin:5px 10px 0 0" />
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut iaculis velit. Donec a bibendum elit. Pellentesque dui lorem, pellentesque sit amet bibendum hendrerit, condimentum id orci. Curabitur orci tellus, facilisis nec ligula vitae, consectetur finibus orci. In hac habitasse platea dictumst. Aenean venenatis luctus odio, in luctus mauris eleifend nec. Ut vehicula odio purus, ultrices volutpat turpis interdum id. Vestibulum viverra auctor rutrum. Nunc lacus lacus, semper nec dui eget, faucibus congue lectus. Sed porta ipsum ipsum. Mauris et diam diam. Sed consequat purus orci, vel tristique nibh malesuada eu. Nunc vel purus id enim tempus tristique. Praesent porta eros non varius volutpat.</p>
+
+                    <p>Fusce tortor leo, vulputate ac luctus sed, commodo non arcu. Morbi lobortis dignissim nulla, vitae consectetur eros tincidunt sed. Donec efficitur, enim vitae blandit consectetur, ligula mi egestas massa, in pretium neque urna malesuada quam. Sed tempor lorem eu magna laoreet rutrum. Nulla blandit lorem a quam faucibus auctor. Quisque id metus pretium, blandit tortor eget, hendrerit orci. Morbi ultrices iaculis lorem non facilisis. Fusce molestie at turpis sit amet molestie. Nam in mi magna. Sed pharetra leo quis nulla dignissim efficitur. Pellentesque sagittis elementum mauris, ut venenatis tortor interdum eu. Nullam vel convallis odio. Aenean ut leo elementum, tempus magna et, congue metus. Aliquam ultrices tellus quis faucibus lacinia. Maecenas mattis malesuada eros, eu aliquet nulla. Phasellus posuere porta urna.</p>
+
+                    <hr>
+
+                    <a href="#myModal" role="button" class="btn btn-warning" data-toggle="modal"><span class="glyphicon glyphicon-hand-up"></span> Click for a Modal Window!</a>
+
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">A Modal Window</h4>
+                                </div>	<!-- end modal-header -->
+
+                                <div class="modal-body">
+                                    <h4>Text in a modal</h4>
+
+                                    <p>Etiam auctor leo non arcu tincidunt, et placerat ex placerat. Pellentesque ut nunc a augue rutrum dapibus quis vel ex. Mauris at semper nulla, id dapibus nisi. Nunc auctor enim quis arcu sodales convallis. Morbi vehicula tellus metus, et fringilla ante pellentesque sed. Sed ut scelerisque eros. Mauris malesuada nisl at eros egestas iaculis.</p>
+
+
+                                    <h4>Popovers in a modal</h4>
+                                    <a href="#" class="btn btn-danger pop" data-toggle="popover" data-placement="top" data-original-title="You clicked it!" data-content="I knew you would.">Don't click this</a>
+
+                                    <h4>Tooltips in a modal</h4>
+                                    <a href="#" data-original-title="Tooltip" rel="tooltip">This link</a>should have a tooltip, and should be <a href="#" data-original-title="Woohoo!" rel="tooltip">this one</a>!
+
+                                    <hr>
+
+                                    <p><small class="text-muted">PS. This form doesn't do anyting. Just a heads up.</small></p>
+
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label for=" inputname">Name</label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="inputName" placeholder="Name" type="text">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label for=" inputemail">Email</label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="inputEmail" placeholder="Email" type="email">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label for=" inputmessage">Email</label>
+                                            <div class="col-lg-10">
+                                                <textarea class="form-control" id="inputMessage" placeholder="Message" rows="3"></textarea>
+
+                                                <button class="btn btn-success pull-right" type="submit">Send!</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                </div>	<!-- end modal-body -->
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-default" data-dismiss="modal" type="button">Close</button> <button class="btn btn-primary" type="button">Save changes</button>
+                                </div>	<!-- end modal-footer -->
+
+
+                            </div>	<!-- end modal-content -->
+                        </div>	<!-- end modal-dialog -->
+                    </div>	<!-- end myModal -->
+                </div>
+
+
+                <div class="tab-pane" id="tab3">
+                    <p>This page is under construct...</p>
+                </div>
+
+            </div>	<!-- end tab-pane -->
+        </div>	<!-- end-tabbable -->
+    </div>	<!-- end-col-sm-6 -->
+
+    <div class="col-sm-6">
+        <h3>Contact us</h3>
+        <p>Fusce tortor leo, vulputate ac luctus sed, commodo non arcu. Morbi lobortis dignissim nulla, vitae consectetur eros tincidunt sed. Donec efficitur, enim vitae blandit consectetur, ligula mi egestas massa, in pretium neque urna malesuada quam. Sed tempor lorem eu magna laoreet rutrum. </p>
+
+        <h4>You can reach us by any way of followings: </h4>
+
+        <div class="List-group">
+            <ul style="margin-left: -45px">
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">By mail: </h4>
+                    <p class="list-group-item-text">Please mail to: </p>
+                    <p>15709 Ambiance Dr., North Potomac, MD, 20878</p>
+                </li>
+
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">By Phone: </h4>
+                    <p class="list-group-item-text">Please call us at: </p>
+                    <p>301-CHN-TEAS</p>
+                </li>
+
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">By live chat: </h4>
+                    <p class="list-group-item-text">
+                        Please click <a href="#">the link</a> and our representative would like to service you.
+                    </p>
+                </li>
+            </ul>
+
+
+        </div>	<!-- end List-group -->
+
+        <h5>A small heading</h5>
+        <p>Curabitur orci tellus, facilisis nec ligula vitae, consectetur finibus orci. In hac habitasse platea dictumst. Aenean venenatis luctus odio, in luctus mauris eleifend nec. Ut vehicula odio purus, ultrices volutpat turpis interdum id. Vestibulum viverra auctor rutrum. Nunc lacus lacus, semper nec dui eget, faucibus congue lectus.</p>
+    </div>	<!-- end-col-sm-6 -->
+</div>
+

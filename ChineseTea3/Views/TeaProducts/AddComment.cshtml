@@ -1,0 +1,26 @@
+﻿@using PagedList.Mvc
+@model ChineseTea3.Models.DetailsViewModel
+
+@{
+    ViewBag.Title = "ViewComments";
+}
+
+<h2>ViewComments</h2>
+<div class="row">
+    @foreach (var comment in Model.CommentsPagedList)
+    {
+        <h2>@comment.CommentTitle</h2>
+        <h5>@comment.AddTime</h5>
+        <h5>@comment.UserName</h5>
+        <p>@comment.CommentContent</p>
+        <a href="#">Top</a>
+        <hr />
+    }
+    @*id = Model.Rv.Tea.ID can be passed after new, and Model.Rv.Tea.ID is too long to be passed in the ViewModel*@
+    @Html.PagedListPager(Model.CommentsPagedList, page => Url.Action("ViewAllComments",
+            new { page, id = Model.ProductId }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded }
+            )
+</div>
+
+

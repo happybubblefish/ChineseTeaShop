@@ -1,0 +1,358 @@
+﻿@using System.Activities.Expressions
+@using ChineseTea3.Models
+@using Microsoft.AspNet.Identity
+@using PagedList
+@using PagedList.Mvc
+@model ChineseTea3.Models.ProductsViewModel
+
+@{
+    ViewBag.Title = "ViewProducts";
+}
+
+<script type="text/javascript">
+    //function sort(id) {
+    //    var form = $('#demoForm');
+    //    var sel = document.forms['demoForm'].elements['category'];
+    //    var text = document.getElementById(id);
+    //    text.value = sel.value;
+
+    //    form.submit();
+    //}
+
+
+    // good for clear all checked checkbox, but no use here
+    $(function () {
+        var mainForm = $("#demoForm");
+        var sortByPrice = mainForm.find("select[name=SortByPrice]");
+
+        sortByPrice.change(function () {
+            var selectedValue = document.forms['demoForm'].elements['SortByPrice'];
+
+            //alert(result);
+            if (selectedValue.value == "All") {
+                var checkboxes = $("input[type=checkbox]");
+                alert(checkboxes.length);
+                for (i = 0; i < checkboxes.length; i++) {
+                    checkboxes[i].checked = false;
+                }
+            }
+            mainForm.submit();
+        });
+
+        //javascript for checkbox
+        mainForm.find("input[type=checkbox]").change(function () {
+            mainForm.submit();
+        });
+
+        //sortByPrice.change(function () {
+        //    mainForm.submit();
+        //});
+
+
+        //var sortByPriceRange = $("#SortByPriceRange");
+        //var sortByKind = $("#SortByKind");
+
+        //sortByPriceRange.change(function () {
+        //    mainForm.submit();
+        //});
+
+        //sortByKind.change(function () {
+        //    mainForm.submit();
+        //});
+
+    });
+</script>
+
+
+
+<div class="row view">
+    <div class="view-left">
+        <h2>ViewProducts</h2>
+
+
+
+        @*@{
+                    List<SelectListItem> roles = new List<SelectListItem>()
+                {
+                    new SelectListItem()
+                    {
+                        Text="Black & Dark",
+                        Value="Black & Dark"
+                    },
+                    new SelectListItem()
+                    {
+                        Text="Green",
+                        Value="Green"
+                    },
+                    new SelectListItem()
+                    {
+                        Text="Oolong",
+                        Value="Oolong"
+                    },
+                     new SelectListItem()
+                    {
+                        Text="Red",
+                        Value="Red"
+                    },
+                    new SelectListItem()
+                    {
+                        Text="White",
+                        Value="White"
+                    },
+                    new SelectListItem()
+                    {
+                        Text="Scented",
+                        Value="Scented"
+                    },
+                     new SelectListItem()
+                    {
+                        Text="Compressed",
+                        Value="Compressed"
+                    },
+                    new SelectListItem()
+                    {
+                        Text="Yellow",
+                        Value="Yellow"
+                    }
+                };
+            }*@
+
+        @*--------------------------Drop down Kind list START---------------------------*@
+
+        @{
+            ChineseTeaShopEntities dbContext = new ChineseTeaShopEntities();
+            string id = User.Identity.GetUserId();
+            AspNetUser user = dbContext.AspNetUsers.FirstOrDefault(m => m.Id == id);
+
+            if (user != null && user.Role == "admin")
+            {
+                @Html.ActionLink("Add New", "CreateProduct", FormMethod.Get, new { @class = "btn btn-warning", style = "margin-bottom:5px" })
+            }
+        }
+
+        @*--------------------------Drop down Kind list END---------------------------*@
+
+
+        @*--------------------------New sort Start---------------------------*@
+
+        <div>
+            <p>
+                @*@using (Html.BeginForm("Sort", "TeaProducts", FormMethod.Get, new {id = "sortRadioButton"}))
+                    {
+                        <b>Sort By:</b>
+                        @Html.RadioButtonFor(m => m.SortBy, "Kind")*@ @*name, value*@
+                        @*<text>TeaKind</text>
+                                @Html.RadioButtonFor(m => m.SortBy, "Origin")
+                                <text>TeaOrigin</text>
+                                @Html.RadioButtonFor(m => m.SortBy, "Name")
+                                <text>TeaName</text>
+                                @Html.RadioButtonFor(m => m.SortBy, "Price")
+                                <text>TeaPrice</text><br/>
+                                @Html.TextBox("sort")
+                                <input type="submit" value="Sort"/>
+                            }*@
+
+
+                        @*<form action="#" method="post" id="demoForm" class="demoForm">
+                                    <fieldset>
+                                        <legend>Demo: Get Value or Text of Selected Option</legend>
+
+                            <p>
+                                <select name="category">
+                                    <option value=""> - Choose a Topic - </option>
+                                    <option value="/tutorials/forms/">JavaScript and Forms Tutorial</option>
+                                    <option value="/tutorials/forms/references.php">Obtaining References</option>
+                                    <option value="/tutorials/forms/events/handlers/">Forms and Event Handling</option>
+                                    <option value="/tutorials/forms/radio/">JavaScript and Radio Buttons</option>
+                                    <option value="/tutorials/forms/checkbox/">JavaScript and Checkboxes</option>
+                                    <option value="/tutorials/forms/select/paired.php">Dynamic Paired Select Boxes</option>
+                                </select>
+                                <input type="button" id="showVal" value="Show Value" />
+                                <input type="button" id="showTxt" value="Show Text" />
+                            </p>
+
+                            </fieldset>
+                            </form>*@
+
+
+                        @using (Html.BeginForm("ViewProducts", "TeaProducts", FormMethod.Post, new { id = "demoForm" }))
+                        {
+                            @*@Html.TextBoxFor(m => m.SortByPrice, "Sort", new { type = "hidden", id = "txtPrice" })*@
+
+                            @*<select class="selectpicker" name="" onchange="sort('txtPrice')">
+
+                                    <optgroup label="Please select...">
+                                        <option value="All" selected="@(Model.SortByPrice == "All")">All</option>
+                                    </optgroup>
+                                    <optgroup label="sort by price">
+                                        <option value="Lowest to highest" selected="@(Model.SortByPrice == "Lowest to highest")">Lowest to highest</option>
+                                        <option value="Highest to lowest" selected="@(Model.SortByPrice == "Highest to lowest")">Highest to lowest</option>
+                                    </optgroup>
+                                </select>*@
+
+                            @Html.ActionLink("All products", "ViewProducts")<br />
+                            @Html.DropDownListFor(m => m.SortByPrice, new SelectList(this.Model.PriceCondition, this.Model.SortByPrice))<br />
+
+                            @Html.CheckBoxFor(m => m.IsBlack)<text>Black & dark</text><br />
+                            @Html.CheckBoxFor(m => m.IsCompressed)<text>Compressed</text><br />
+                            @Html.CheckBoxFor(m => m.IsGreen)<text>Green</text><br />
+                            @Html.CheckBoxFor(m => m.IsOolong)<text>Oolong</text><br />
+                            @Html.CheckBoxFor(m => m.IsRed)<text>Red</text><br />
+                            @Html.CheckBoxFor(m => m.IsScented)<text>Scented</text><br />
+                            @Html.CheckBoxFor(m => m.IsWhite)<text>White</text><br />
+                            @Html.CheckBoxFor(m => m.IsYellow)<text>Yellow</text><br />
+
+
+                            @Html.CheckBoxFor(m => m.IsLessThan50)<text>Less than 50</text><br />
+                            @Html.CheckBoxFor(m => m.IsBetween50And100)<text>$50 ~ 100</text><br />
+                            @Html.CheckBoxFor(m => m.IsBetween100And200)<text>$100 ~ 200</text><br />
+                            @Html.CheckBoxFor(m => m.IsOver200)<text>More than $200</text><br />
+
+
+
+
+
+
+                            @*@Html.DropDownListFor(m => m.SortByPriceRange, new SelectList(this.Model.RangeCondition, this.Model.SortByPriceRange));
+                                @Html.DropDownListFor(m => m.SortByKind, new SelectList(this.Model.KindCondition, this.Model.SortByKind));*@
+
+                            @*@Html.TextBoxFor(m => m.SortByPriceRange, "Sort", new { type = "hidden", id = "txtPriceRange" })*@
+                            @*@ViewBag.sortByPriceRange
+                                <select class="selectpicker" name="@ViewBag.sortByPriceRange" onchange=" sort() ">
+
+                                    <optgroup label="sort by price range">
+                                        <option value="">0 ~ $50</option>
+                                        <option value="">$50 ~ 100</option>
+                                        <option value="">$100 ~ 200</option>
+                                        <option value="">$200 ~</option>
+                                    </optgroup>
+                                </select>*@
+
+
+                            @*@Html.TextBoxFor(m => m.SortByKind, "Sort", new { type = "hidden", id = "txtKind" })*@
+                            @*@ViewBag.sortByPriceRange
+                                <select class="selectpicker" name="@ViewBag.sortByPriceRange" onchange=" sort() ">
+
+                                    <optgroup label="sort by kind">
+                                        <option value="Black & Dark" selected="@(Model.SortByKind == "Black & Dark")">Black &amp; dark</option>
+                                        <option value="Green" selected="@(Model.SortByKind == "Green")">Green</option>
+                                        <option value="Compressed" selected="@(Model.SortByKind == "Compressed")">Compressed</option>
+                                        <option value="Oolong" selected="@(Model.SortByKind == "Oolong")">Oolong</option>
+                                        <option value="Red" selected="@(Model.SortByKind == "Red")">Red</option>
+                                        <option value="Scented" selected="@(Model.SortByKind == "Scented")">Scented</option>
+                                        <option value="White" selected="@(Model.SortByKind == "White")">White</option>
+                                        <option value="Yellow" selected="@(Model.SortByKind == "Yellow")">Yellow</option>
+                                    </optgroup>
+                                </select>*@
+
+                        }
+
+                    </p>
+                </div>
+            </div>
+
+
+            @*--------------------------New<> sort END---------------------------*@
+
+            @if (Model.TeaPagedList.Count != 0)
+            {
+                <div class="container view-right">
+                    <div class="product-list">
+                        @foreach (var item in Model.TeaPagedList)
+                        {
+                            if (item.IsDelete == false)
+                            {
+                                <div class="col-sm-3 col-lg-3 col-md-3">
+                                    <div class="thumbnail">
+                                        <a href="@Url.Action("Details", "TeaProducts", new{id = item.ID})"><img src="@Url.Content("~/UpLoadedFiles/" + item.ImageFileName)" alt=@item.Name /></a>
+                                        <div class="caption">
+
+                                            <h4 class="product-name truncate-one">
+                                                @*<a href="~/TeaProduct/Details">@item.Name</a>*@
+                                                @Html.ActionLink(@item.Name, "Details", new { id = item.ID })
+                                            </h4>
+                                        </div>
+                                        <div class="stock-status">
+                                            @if (item.Count <= 30 && item.Count > 0)
+                                            {
+                                                <span class="almost-gone">Almost gone</span>
+                                            }
+                                            else if (item.Count == 0)
+                                            {
+                                                <span class="out-of-stock">Out of stock</span>
+                                            }
+                                            else
+                                            {
+                                                @*@item.Count<text>left</text>*@
+                                                <span class="in-stock">In stock</span>
+                                            }
+                                        </div>
+
+                                        <div class="caption clearfix">
+                                            <div class="pull-left" style="font-size: 20px"><span class="price">$@item.Price</span></div><div class="shipping pull-right">Free shipping</div>
+                                        </div>
+                                        <div class="price-off">after 50% off</div>
+
+                                        <div class="caption">
+                                            <p class="pull-right">
+                                                @{
+                                            List<ProductComment> commentsList = dbContext.ProductComments.Where(m => m.ProductId == item.ID).ToList();
+                                            int count = commentsList.Count;
+                                                }
+                                                @*@Html.ActionLink(count.ToString(), "ViewAllComments", new { id = item.ID })*@
+                                                <a href="@Url.Action("ViewAllComments", new { id = item.ID } )"><span style="font-size: 18px">@count</span><span style="font-size: 15px">&nbsp;&nbsp;reviews</span></a>
+                                            </p>
+                                            <p>
+                                                @{
+                                int starCounts = item.Ratings ?? 0;
+                                                }
+
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (starCounts > 0)
+                                                    {
+                                                        <i class="glyphicon glyphicon-star" style="color: #ff6a00; font-size: 15px"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="glyphicon glyphicon-star-empty" style="color: #ff6a00; font-size: 15px"></i>
+                                                    }
+
+                                                    starCounts--;
+                                                }
+                                            </p>
+                                        </div>
+
+                                        @*add to cart*@
+                                        @*@using (Html.BeginForm("AddToCart", "ShoppingCart"))
+                                            {
+                                                @Html.Hidden("productId", @item.ID)
+                                                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                                <p>
+                                                    <input type="submit" class="btn btn-danger pull-right" style="margin-top: -15px" value="Add to cart" />
+                                                </p>
+                                            }*@
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+
+                    @Html.PagedListPager(Model.TeaPagedList, page => Url.Action("ViewProducts",
+            new { page, Model.SortByPrice, Model.IsBlack, Model.IsCompressed, Model.IsGreen, Model.IsOolong, Model.IsRed, Model.IsScented, Model.IsWhite, Model.IsYellow, Model.IsLessThan50, Model.IsBetween50And100, Model.IsBetween100And200, Model.IsOver200 }),
+            new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded, DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded }
+            )
+                    @* Sort = Request.QueryString["Sort"], Kind = Request.QueryString["Kind"], Price = Request.QueryString["Price"]*@
+                </div>
+
+
+            }
+            else
+            {
+                <div class="row">
+                    <h2>Sorry, there is no item you are searching for...</h2>
+                </div>
+            }
+
+        </div>   

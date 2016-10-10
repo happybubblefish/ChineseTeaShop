@@ -1,0 +1,33 @@
+﻿@using System.Activities.Expressions
+@using ChineseTea3.Models
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+        //may need to take care of null, may not, since already testify autheticated
+        ChineseTeaShopEntities dbContext = new ChineseTeaShopEntities();
+        string id = User.Identity.GetUserId();
+        AspNetUser user = dbContext.AspNetUsers.FirstOrDefault(m => m.Id == id);
+        
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("HELLO, " + user.Nickname, "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage", style = "color: #e67e22; padding-top: 20px"})
+            <a href="~/Manage"><i class="glyphicon glyphicon-folder-open"></i></a>
+        </li>
+        <li>
+            <a href="~/ShoppingCart"><i class="glyphicon glyphicon-shopping-cart" style="margin-top: 3px; color:#e67e22"></i></a>
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()" class="navbar-logoff"><i class="glyphicon glyphicon-log-out" title="Log off"></i></a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "register-link" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "login-link" })</li>
+    </ul>
+}

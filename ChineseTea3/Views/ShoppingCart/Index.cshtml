@@ -1,0 +1,54 @@
+﻿@model ChineseTea3.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Your cart</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Items</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var record in Model.Cart.Records)
+    {
+        <tr>
+            <td class="text-center">@record.Quantity</td>
+            <td class="text-left">@record.TeaProduct.Name</td>
+            <td class="text-center">@record.TeaProduct.Price.ToString("c")</td>
+            <td class="text-right">$@record.FinalPrice</td>
+
+            @using (Html.BeginForm("RemoveFromCart", "ShoppingCart"))
+            {
+                @Html.Hidden("productId", record.ProductId)
+                @Html.Hidden("returnUrl", Model.ReturnUrl)
+                @Html.Hidden("recordId", record.ID)
+
+                <td>
+                    <input type="submit" class="btn btn-danger" value="Remove"/>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total: </td>
+            <td class="text-right">
+                $@Model.Cart.ComputeTotalValue();
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center" style="float: left; margin-left: 300px; margin-right: -200px">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">
+        Continue Shopping
+    </a>
+    @Html.ActionLink("Checkout now", "Checkout", null, new {@class = "btn btn-warning"})
+</div>
+<div class="text-center" style="margin-left: -200px"></div>
